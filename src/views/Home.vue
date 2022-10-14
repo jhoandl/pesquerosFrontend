@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        <p>Inicio</p>
+        <p>Aplicación Web Pesqueros</p>
     </div>
 </template>
 
