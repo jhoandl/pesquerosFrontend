@@ -11,7 +11,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "Dashboard",
     component: Dashboard,
     children: [
@@ -41,6 +41,10 @@ const routes = [
         component: Alimentacion,
       },
     ]
+  },
+  {
+    path: "/",
+    redirect: '/home',
   },
 ];
 
