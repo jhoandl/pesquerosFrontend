@@ -1,2 +1,0 @@
-# pesquerosFrontend
-Frontend pesqueros
