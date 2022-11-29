@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Dashboard from "../views/Dashboard.vue";
-// import Usuarios from "../views/Usuarios.vue";
+import Usuarios from "../views/Usuarios.vue";
 // import Roles from "../views/Roles.vue";
 // import Oxigenacion from "../views/Oxigenacion.vue";
 // import Alimentacion from "../views/Alimentacion.vue";
@@ -20,11 +20,11 @@ const routes = [
         name: "Inicio",
         component: Home,
       },
-      // {
-      //   path: "/users",
-      //   name: "Usuarios",
-      //   component: Usuarios,
-      // },
+      {
+        path: "/users",
+        name: "Usuarios",
+        component: Usuarios,
+      },
       // {
       //   path: "/roles",
       //   name: "Roles",
