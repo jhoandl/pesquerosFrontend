@@ -5,7 +5,7 @@ import Dashboard from "../views/Dashboard.vue";
 import Usuarios from "../views/Usuarios.vue";
 // import Roles from "../views/Roles.vue";
 // import Oxigenacion from "../views/Oxigenacion.vue";
-// import Alimentacion from "../views/Alimentacion.vue";
+import Alimentacion from "../views/Alimentacion.vue";
 
 Vue.use(VueRouter);
 
@@ -35,11 +35,11 @@ const routes = [
       //   name: "Oxigenacion",
       //   component: Oxigenacion,
       // },
-      // {
-      //   path: "/food",
-      //   name: "Alimentacion",
-      //   component: Alimentacion,
-      // },
+      {
+      path: "/food",
+      name: "Alimentacion",
+      component: Alimentacion,
+      },
     ]
   },
   {
