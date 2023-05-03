@@ -41,7 +41,8 @@
               }"
             >
               <li v-for="(child, i) in item.children" :key="i">
-                <a
+                <router-link
+                  :to="child.path"
                   class="flex items-center px-4 py-2 text-gray-400"
                   :class="{
                     'ml-8': item.children.length > 1,
@@ -52,7 +53,7 @@
                 >
                   <i class="mr-3 fa-regular fa-circle"></i>
                   <span>{{ child.label }}</span>
-                </a>
+                </router-link>
               </li>
             </ul>
           </li>
@@ -91,14 +92,17 @@ export default {
             {
               label: "Empresa",
               isActiveChild: false,
+              path: "",
             },
             {
               label: "Cargo",
               isActiveChild: false,
+              path: "",
             },
             {
               label: "Personal",
               isActiveChild: false,
+              path: "/personal",
             },
           ],
         },
@@ -111,10 +115,12 @@ export default {
             {
               label: "Alimentación",
               isActiveChild: false,
+              path: "",
             },
             {
               label: "Oxigenación",
               isActiveChild: false,
+              path: "",
             },
           ],
         },
