@@ -19,6 +19,7 @@
               :key="index"
               :class="{ 'bg-gray-300 text-black': item.isActive }"
             >
+<<<<<<< HEAD
               <a
                 class="flex items-center px-4 py-2 text-black"
                 :class="{ 'bg-gray-300 text-black': item.isActive }"
@@ -71,6 +72,55 @@
             </li>
           </ul>
         </div>
+=======
+              <i class="mr-3" :class="item.icon"></i>
+              <span>{{ item.label }}</span>
+              <i
+                class="ml-auto"
+                v-show="item.children.length > 0"
+                :class="
+                  item.isCollapsed
+                    ? 'fa-solid fa-chevron-down'
+                    : 'fa-solid fa-chevron-up'
+                "
+              ></i>
+            </a>
+            <ul
+              class="collapsible"
+              v-if="item.children.length > 0"
+              :style="{
+                maxHeight: item.isCollapsed
+                  ? '0'
+                  : item.children.length * 3 + 'rem',
+              }"
+            >
+              <li v-for="(child, i) in item.children" :key="i">
+                <router-link
+                  :to="child.path"
+                  class="flex items-center px-4 py-2 text-gray-400"
+                  :class="{
+                    'ml-8': item.children.length > 1,
+                    'bg-gray-300 text-black w-60': child.isActiveChild,
+                    'rounded-lg': child.isActiveChild,
+                  }"
+                  @click="toggleChildActive(item, child)"
+                >
+                  <i class="mr-3 fa-regular fa-circle"></i>
+                  <span>{{ child.label }}</span>
+                </router-link>
+              </li>
+            </ul>
+          </li>
+          <li class="mt-96">
+            <a
+              class="flex items-center px-4 py-4 text-black bg-gray-300 w-full ml-auto mr-auto justify-center"
+            >
+              <i class="mr-3 fa-solid fa-sign-out"></i>
+              <span>Cerrar sesión</span>
+            </a>
+          </li>
+        </ul>
+>>>>>>> ad486242859ca07363f01dcfa4ba9bcd9c4eba0e
       </div>
     </div>
   </div>
@@ -103,14 +153,17 @@ export default {
             {
               label: "Empresa",
               isActiveChild: false,
+              path: "",
             },
             {
               label: "Cargo",
               isActiveChild: false,
+              path: "",
             },
             {
               label: "Personal",
               isActiveChild: false,
+              path: "/personal",
             },
           ],
         },
@@ -123,10 +176,12 @@ export default {
             {
               label: "Alimentación",
               isActiveChild: false,
+              path: "",
             },
             {
               label: "Oxigenación",
               isActiveChild: false,
+              path: "",
             },
           ],
         },

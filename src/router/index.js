@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import Login from "../views/Login.vue";
 import RecoveryPassword from "../views/RecoveryPassword.vue";
 import UpdatePassword from "../views/UpdatePassword.vue";
+import Personal from "../views/Personal.vue";
 
 Vue.use(VueRouter);
 
@@ -12,6 +13,11 @@ const routes = [
     path: "/home",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/personal",
+    name: "personal",
+    component: Personal,
   },
   {
     path: "/about",
