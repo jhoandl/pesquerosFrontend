@@ -1,9 +1,10 @@
 <template>
-  <div class="navbar">
+  <div class="navbar dark">
     <div class="navbar-content bg-white ml-auto mr-auto mt-4 h-11 rounded-xl">
       <div>
         <div class="flex items-center ml-10">
           <button
+            @click="toggleSidebar()"
             class="text-gray-600 hover:text-gray-800 focus:outline-none mt-2"
           >
             <i class="fas fa-bars text-xl"></i>
@@ -20,9 +21,13 @@
           >
             <i class="fas fa-bell text-xl"></i>
           </button>
-          <button class="text-gray-600 hover:text-gray-800 focus:outline-none">
-            <!-- <i class="fas fa-moon text-xl"></i> -->
-            <i class="fa-solid fa-circle-half-stroke text-xl"></i>
+          <button
+            class="text-gray-600 hover:text-gray-800 focus:outline-none"
+            @click="toggleDarkMode"
+          >
+            <i v-if="darkMode" class="fa-solid fa-sun"></i>
+            <i v-else class="fas fa-moon text-xl"></i>
+            <!-- <i class="fa-solid fa-circle-half-stroke text-xl"></i> -->
           </button>
           <div class="ml-3">
             <span class="text-gray-600 font-medium -mt-5 mr-2 relative">
@@ -38,13 +43,27 @@
       </div>
       <router-view />
     </div>
-    <router-view />
   </div>
 </template>
 
 <script>
+import darkModeMixin from "@/mixins/darkModeMixin";
+
 export default {
   name: "NavbarComponent",
+  mixins: [darkModeMixin],
+  data() {
+    return {
+      sidebarVisible: true,
+    };
+  },
+  methods: {
+    toggleSidebar() {
+      this.sidebarVisible = !this.sidebarVisible;
+      this.$emit("toggle-sidebar");
+      console.log(this.sidebarVisible);
+    },
+  },
 };
 </script>
 

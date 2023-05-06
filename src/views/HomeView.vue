@@ -1,6 +1,10 @@
 <template>
   <div class="contenedor">
-    <SidebarComponent class="sidebar" />
+    <SidebarComponent
+      :sidebarVisible="sidebarVisible"
+      @toggle-sidebar="sidebarVisible = true"
+      class="sidebar"
+    />
     <NavbarComponent class="navbar" />
   </div>
 </template>
@@ -15,6 +19,29 @@ export default {
   components: {
     NavbarComponent,
     SidebarComponent,
+  },
+  data() {
+    return {
+      darkMode: false,
+      sidebarVisible: true,
+    };
+  },
+  created() {
+    // Obtener el valor de modo oscuro del localStorage
+    const isDarkMode = localStorage.getItem("dark") === "true";
+    this.darkMode = isDarkMode;
+  },
+  updated() {
+    // Cambiar la clase "dark" en el elemento <html>
+    document.documentElement.classList.toggle("dark", this.darkMode);
+  },
+  methods: {
+    setDarkMode(darkMode) {
+      // Cambiar el valor en localStorage
+      localStorage.setItem("dark", darkMode);
+      // Actualizar el valor de darkMode
+      this.darkMode = darkMode;
+    },
   },
 };
 </script>
