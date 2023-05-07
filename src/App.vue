@@ -6,8 +6,6 @@
         <div class="contenedor">
           <SidebarComponent
             v-show="!$route.meta.hideNavigation"
-            :sidebarVisible="sidebarVisible"
-            @toggle-sidebar="sidebarVisible = true"
             class="sidebar"
           />
           <div class="contentView flex flex-col h-screen">
@@ -15,14 +13,6 @@
               v-show="!$route.meta.hideNavigation"
               class="navbar"
             />
-            <!-- <div
-              v-show="!$route.meta.hideNavigation"
-              class="w-full flex-1 flex justify-center"
-            >
-              <div class="w-3/4 mt-10 views">
-                <router-view class="" />
-              </div>
-            </div> -->
           </div>
         </div>
       </template>

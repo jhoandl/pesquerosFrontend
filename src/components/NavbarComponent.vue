@@ -64,7 +64,7 @@ export default {
   methods: {
     toggleSidebar() {
       this.sidebarVisible = !this.sidebarVisible;
-      localStorage.setItem("toggle", false);
+      localStorage.setItem("toggle", this.sidebarVisible);
       console.log(this.sidebarVisible);
     },
   },

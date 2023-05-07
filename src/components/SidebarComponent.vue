@@ -3,13 +3,13 @@
     <!-- <button @click="toggleSidebar">Toggle Sidebar</button> -->
     <div
       class="sidebar"
-      :class="['sidebar', { 'sidebar-hide': !sidebarVisible }]"
+      :class="['sidebar', { 'sidebar-hide': sidebarVisible }]"
     >
       <div class="side-content">
         <div class="header">
           <h1 class="sidebar-title">
             <i class="fa-solid fa-fish"></i>
-            PESQUEROS
+            PESQUEROS {{ sidebarVisible }}
           </h1>
         </div>
         <div class="w-full cursor-pointer ml-auto mr-auto content-menu">
@@ -99,14 +99,10 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "SidebarComponent",
-  props: {
-    sidebarVisible: {
-      type: Boolean,
-      required: true,
-    },
-  },
   data() {
     return {
       menuItems: [
@@ -168,7 +164,24 @@ export default {
           children: [],
         },
       ],
+      sidebarVisible: true,
     };
+  },
+  computed: mapState({
+    sidebarVisible: (state) => state.sidebarVisible,
+  }),
+  watch: {
+    // Observa cambios en el elemento del localStorage
+    "$store.state.toggle": {
+      handler: function (newVal) {
+        // Haz algo con el nuevo valor, como asignarlo a una propiedad del componente
+        console.log("entro", newVal);
+        this.sidebarVisible = newVal;
+      },
+      // Configura el parámetro 'immediate' como 'true' para obtener el valor actual del localStorage
+      // cuando se crea el componente
+      immediate: true,
+    },
   },
   methods: {
     toggleCollapse(index) {
