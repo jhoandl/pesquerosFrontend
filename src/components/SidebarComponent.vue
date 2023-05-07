@@ -1,71 +1,98 @@
 <template>
-  <div class="sidebar">
-    <div class="side-content">
-      <div class="header">
-        <h1 class="sidebar-title">
-          <i class="fa-solid fa-fish"></i>
-          PESQUEROS
-        </h1>
-      </div>
-      <div class="w-full cursor-pointer ml-auto mr-auto content-menu">
-        <ul class="mt-6">
-          <li
-            v-for="(item, index) in menuItems"
-            :key="index"
-            :class="{ 'bg-gray-300 text-black': item.isActive }"
-          >
-            <a
-              class="flex items-center px-4 py-2 text-black"
+  <div>
+    <!-- <button @click="toggleSidebar">Toggle Sidebar</button> -->
+    <div
+      class="sidebar"
+      :class="['sidebar', { 'sidebar-hide': !sidebarVisible }]"
+    >
+      <div class="side-content">
+        <div class="header">
+          <h1 class="sidebar-title">
+            <i class="fa-solid fa-fish"></i>
+            PESQUEROS
+          </h1>
+        </div>
+        <div class="w-full cursor-pointer ml-auto mr-auto content-menu">
+          <ul class="mt-6">
+            <li
+              v-for="(item, index) in menuItems"
+              :key="index"
               :class="{ 'bg-gray-300 text-black': item.isActive }"
-              @click="toggleCollapse(index)"
             >
-              <i class="mr-3" :class="item.icon"></i>
-              <span>{{ item.label }}</span>
-              <i
-                class="ml-auto"
-                v-show="item.children.length > 0"
-                :class="
-                  item.isCollapsed
-                    ? 'fa-solid fa-chevron-down'
-                    : 'fa-solid fa-chevron-up'
-                "
-              ></i>
-            </a>
-            <ul
-              class="collapsible"
-              v-if="item.children.length > 0"
-              :style="{
-                maxHeight: item.isCollapsed
-                  ? '0'
-                  : item.children.length * 3 + 'rem',
-              }"
-            >
-              <li v-for="(child, i) in item.children" :key="i">
-                <router-link
-                  :to="child.path"
-                  class="flex items-center px-4 py-2 text-gray-400"
-                  :class="{
-                    'ml-8': item.children.length > 1,
-                    'bg-gray-300 text-black w-60': child.isActiveChild,
-                    'rounded-lg': child.isActiveChild,
-                  }"
-                  @click="toggleChildActive(item, child)"
-                >
-                  <i class="mr-3 fa-regular fa-circle"></i>
-                  <span>{{ child.label }}</span>
-                </router-link>
-              </li>
-            </ul>
-          </li>
-          <li class="mt-96">
-            <a
-              class="flex items-center px-4 py-4 text-black bg-gray-300 w-full ml-auto mr-auto justify-center"
-            >
-              <i class="mr-3 fa-solid fa-sign-out"></i>
-              <span>Cerrar sesión</span>
-            </a>
-          </li>
-        </ul>
+              <router-link
+                v-if="item.path != ''"
+                :to="item.path"
+                class="flex items-center px-4 py-2 text-black"
+                :class="{ 'bg-gray-300 text-black': item.isActive }"
+                @click="toggleCollapse(index)"
+              >
+                <i class="mr-3" :class="item.icon"></i>
+                <span>{{ item.label }}</span>
+                <i
+                  class="ml-auto"
+                  v-show="item.children.length > 0"
+                  :class="
+                    item.isCollapsed
+                      ? 'fa-solid fa-chevron-down'
+                      : 'fa-solid fa-chevron-up'
+                  "
+                ></i>
+              </router-link>
+              <a
+                v-else
+                class="flex items-center px-4 py-2 text-black"
+                :class="{ 'bg-gray-300 text-black': item.isActive }"
+                @click="toggleCollapse(index)"
+              >
+                <i class="mr-3" :class="item.icon"></i>
+                <span>{{ item.label }}</span>
+                <i
+                  class="ml-auto"
+                  v-show="item.children.length > 0"
+                  :class="
+                    item.isCollapsed
+                      ? 'fa-solid fa-chevron-down'
+                      : 'fa-solid fa-chevron-up'
+                  "
+                ></i>
+              </a>
+              <ul
+                class="collapsible"
+                v-if="item.children.length > 0"
+                :style="{
+                  maxHeight: item.isCollapsed
+                    ? '0'
+                    : item.children.length * 3 + 'rem',
+                }"
+              >
+                <li v-for="(child, i) in item.children" :key="i">
+                  <router-link
+                    :to="child.path"
+                    class="flex items-center px-4 py-2 text-gray-400"
+                    :class="{
+                      'ml-8': item.children.length > 1,
+                      'bg-gray-300 text-black w-60': child.isActiveChild,
+                      'rounded-lg': child.isActiveChild,
+                    }"
+                    @click="toggleChildActive(item, child)"
+                  >
+                    <i class="mr-3 fa-regular fa-circle"></i>
+                    <span>{{ child.label }}</span>
+                  </router-link>
+                </li>
+              </ul>
+            </li>
+            <li class="mt-96">
+              <a
+                @click.prevent="singOut()"
+                class="flex items-center px-4 py-4 text-black bg-gray-300 w-full ml-auto mr-auto justify-center"
+              >
+                <i class="mr-3 fa-solid fa-sign-out"></i>
+                <span>Cerrar sesión</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -74,6 +101,12 @@
 <script>
 export default {
   name: "SidebarComponent",
+  props: {
+    sidebarVisible: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       menuItems: [
@@ -82,12 +115,14 @@ export default {
           icon: "fa-solid fa-home",
           isActive: true,
           children: [],
+          path: "/home",
         },
         {
           label: "Configuración",
           icon: "fa-solid fa-cog",
           isActive: false,
           isCollapsed: true,
+          path: "",
           children: [
             {
               label: "Empresa",
@@ -111,6 +146,7 @@ export default {
           icon: "fa-solid fa-list",
           isActive: false,
           isCollapsed: true,
+          path: "",
           children: [
             {
               label: "Alimentación",
@@ -128,6 +164,7 @@ export default {
           label: "Estadisticas",
           icon: "fa-solid fa-chart-bar",
           isActive: false,
+          path: "",
           children: [],
         },
       ],
@@ -158,6 +195,10 @@ export default {
       });
       child.isActiveChild = true;
       parent.isActive = false;
+    },
+    singOut() {
+      localStorage.setItem("user", false);
+      this.$router.push({ name: "login" });
     },
   },
 };
@@ -201,5 +242,19 @@ export default {
 }
 .content-menu {
   height: 89vh;
+}
+.sidebar {
+  /* your current sidebar styles */
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.sidebar-hide {
+  transform: translateX(-100%);
+  opacity: 1;
+}
+
+.sidebar-show {
+  transform: translateX(0%);
+  opacity: 1;
 }
 </style>

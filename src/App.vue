@@ -1,17 +1,53 @@
 <template>
-  <div id="app">
-    <HomeView />
-    <!-- <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> -->
+  <div id="app" :class="['app', { 'dark-mode': darkMode }]">
+    <router-view class="w-full" v-show="$route.meta.hideNavigation" />
+    <div v-show="!$route.meta.hideNavigation">
+      <template>
+        <div class="contenedor">
+          <SidebarComponent
+            v-show="!$route.meta.hideNavigation"
+            :sidebarVisible="sidebarVisible"
+            @toggle-sidebar="sidebarVisible = true"
+            class="sidebar"
+          />
+          <div class="contentView flex flex-col h-screen">
+            <NavbarComponent
+              v-show="!$route.meta.hideNavigation"
+              class="navbar"
+            />
+            <!-- <div
+              v-show="!$route.meta.hideNavigation"
+              class="w-full flex-1 flex justify-center"
+            >
+              <div class="w-3/4 mt-10 views">
+                <router-view class="" />
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
-import HomeView from "./views/HomeView.vue";
+// import Login from "./views/Login.vue";
+import darkModeMixin from "@/mixins/darkModeMixin";
+import NavbarComponent from "@/components/NavbarComponent.vue";
+import SidebarComponent from "@/components/SidebarComponent.vue";
 
 export default {
+  mixins: [darkModeMixin],
   components: {
-    HomeView,
+    // Login,
+    NavbarComponent,
+    SidebarComponent,
+  },
+  data() {
+    return {
+      isLoggedIn: false,
+      sidebarVisible: true,
+    };
   },
 };
 </script>
@@ -23,5 +59,41 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.dark-mode {
+  @import "@/assets/css/dark-mode.css"; // Importa el archivo SCSS del modo oscuro
+}
+.contenedor {
+  display: grid;
+  grid-template-columns: 2fr 9fr; /* 10% - 90% */
+}
+.navbar {
+  height: 100vh;
+}
+.sidebar {
+  height: 100vh;
+}
+.parent {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.2fr 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+.views {
+  max-height: 89vh;
+  height: 89vh;
+  overflow: hidden;
+  background-color: rgba($color: #cacfd2, $alpha: 80);
+}
+.login-container {
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
+  // display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

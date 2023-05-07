@@ -23,7 +23,9 @@
         </div>
       </div>
 
-      <button class="rounded-full bg-green-500 text-white py-2 px-4 butoncard">
+      <button
+        class="rounded-full bg-green-500 text-white py-2 px-4 float-right butoncard"
+      >
         Guardar
       </button>
     </div>
@@ -56,7 +58,6 @@ export default {
   padding: 1rem;
 }
 .butoncard {
-  margin-left: 24cm;
   width: 3cm;
   background-color: #66a394;
 }

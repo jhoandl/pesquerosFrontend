@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import Login from "../views/Login.vue";
+import RecoveryPassword from "../views/RecoveryPassword.vue";
+import UpdatePassword from "../views/UpdatePassword.vue";
 import Personal from "../views/Personal.vue";
 import Alimentacion from "../views/Alimentacion.vue";
 import Oxigenacion from "../views/Oxigenacion.vue";
@@ -12,30 +15,68 @@ const routes = [
     path: "/home",
     name: "home",
     component: HomeView,
+    meta: {
+      requiresAuth: true,
+      hideNavigation: false,
+    },
   },
   {
     path: "/personal",
     name: "personal",
     component: Personal,
+    meta: {
+      requiresAuth: true,
+      hideNavigation: false,
+    },
   },
   {
     path: "/Alimentacion",
     name: "Alimentacion",
     component: Alimentacion,
+    meta: {
+      requiresAuth: true,
+      hideNavigation: false,
+    },
   },
   {
     path: "/Oxigenacion",
     name: "Oxigenacion",
     component: Oxigenacion,
+    meta: {
+      requiresAuth: true,
+      hideNavigation: false,
+    },
   },
   {
-    path: "/about",
-    name: "about",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    path: "/login",
+    name: "login",
+    component: Login,
+    meta: {
+      requiresAuth: false,
+      hideNavigation: true,
+    },
+  },
+  {
+    path: "/passwordRecovery",
+    name: "passwordRecovery",
+    component: RecoveryPassword,
+    meta: {
+      requiresAuth: false,
+      hideNavigation: true,
+    },
+  },
+  {
+    path: "/updatePassword",
+    name: "updatePassword",
+    component: UpdatePassword,
+    meta: {
+      requiresAuth: false,
+      hideNavigation: true,
+    },
+  },
+  {
+    path: "/",
+    redirect: "/login",
   },
 ];
 
@@ -46,3 +87,13 @@ const router = new VueRouter({
 });
 
 export default router;
+
+router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem("user");
+
+  if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
+    next("/");
+  } else {
+    next();
+  }
+});
