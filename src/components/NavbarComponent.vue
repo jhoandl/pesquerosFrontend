@@ -41,7 +41,11 @@
           </div>
         </div>
       </div>
-      <router-view />
+    </div>
+    <div class="w-full flex-1 flex justify-center">
+      <div class="w-3/4 mt-10 views">
+        <router-view class="" />
+      </div>
     </div>
   </div>
 </template>
@@ -60,7 +64,7 @@ export default {
   methods: {
     toggleSidebar() {
       this.sidebarVisible = !this.sidebarVisible;
-      this.$emit("toggle-sidebar");
+      localStorage.setItem("toggle", false);
       console.log(this.sidebarVisible);
     },
   },
@@ -78,5 +82,10 @@ export default {
 }
 .accion-nav {
   float: right !important;
+}
+.views {
+  max-height: 89vh;
+  height: 89vh;
+  overflow: hidden;
 }
 </style>

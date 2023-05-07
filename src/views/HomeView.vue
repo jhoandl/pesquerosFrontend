@@ -1,25 +1,38 @@
 <template>
-  <div class="contenedor">
-    <SidebarComponent
-      :sidebarVisible="sidebarVisible"
-      @toggle-sidebar="sidebarVisible = true"
-      class="sidebar"
-    />
-    <NavbarComponent class="navbar" />
+  <div>
+    <div class="grid grid-cols-3 gap-4">
+      <div class="bg-white rounded-lg shadow-md p-4 cursor-pointer">
+        <div class="flex items-center mb-4 float-right">
+          <h2 class="text-lg font-bold text-gray-800 mr-5">Producción</h2>
+          <span class="text-8xl primary mr-2">
+            <i class="fas fa-chart-pie"></i>
+          </span>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-4 cursor-pointer">
+        <div class="flex items-center mb-4 float-right">
+          <h2 class="text-lg font-bold text-gray-800 mr-5">Ganancias</h2>
+          <span class="text-8xl primary mr-2">
+            <i class="fa-solid fa-chart-bar"></i>
+          </span>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-4 cursor-pointer">
+        <div class="flex items-center mb-4 float-right">
+          <h2 class="text-lg font-bold text-gray-800 mr-5">Reportes</h2>
+          <span class="text-8xl primary mr-2">
+            <i class="fa-solid fa-clipboard"></i>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import NavbarComponent from "@/components/NavbarComponent.vue";
-import SidebarComponent from "@/components/SidebarComponent.vue";
-
 export default {
   name: "HomeView",
-  components: {
-    NavbarComponent,
-    SidebarComponent,
-  },
+  components: {},
   data() {
     return {
       darkMode: false,
@@ -47,21 +60,7 @@ export default {
 </script>
 
 <style>
-.contenedor {
-  /* display: grid;
-  grid-template-columns: 0.2fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 1px; */
-  display: grid;
-  grid-template-columns: 2fr 9fr; /* 10% - 90% */
-}
-.navbar {
-  /* grid-area: 1 / 1 / 2 / 3; */
-  height: 100vh;
-}
-.sidebar {
-  /* grid-area: 1 / 1 / 2 / 2; */
-  height: 100vh;
+.primary {
+  color: #66a394;
 }
 </style>
