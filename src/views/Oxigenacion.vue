@@ -1,63 +1,31 @@
 <template>
   <div>
-    <h1 style="margin-top: 2cm" class="text-xl font-bold">
-      Registro de personal
-    </h1>
+    <h1 style="margin-top: 2cm" class="text-xl font-bold">Oxigenación</h1>
     <button class="rounded-full bg-green-500 text-white py-2 px-4 butonAdd">
       <i class="fas fa-plus"></i>
       Nuevo
     </button>
     <div class="bg-white rounded-lg shadow-md p-4">
       <div class="flex">
-        <div class="w-1/3 p-4">
+        <div class="w-1/2 p-4">
           <input
             type="text"
             class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-            placeholder="Nombre"
-          />
-          <input
-            type="text"
-            class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-            placeholder="Tipo Documento"
-          />
-          <input
-            type="text"
-            class="w-full p-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-            placeholder="Empresa"
+            placeholder="Hora de encendido"
           />
         </div>
-        <div class="w-1/3 p-4">
+        <div class="w-1/2 p-4">
           <input
             type="text"
             class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-            placeholder="Apellidos"
-          />
-          <input
-            type="text"
-            class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-            placeholder="Hora de inicio"
-          />
-          <input
-            type="text"
-            class="w-full p-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-            placeholder="Cargo"
+            placeholder="Hora de apagado"
           />
         </div>
-        <div class="w-1/3 p-4">
+        <div class="w-1/2 p-4">
           <input
             type="text"
             class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-            placeholder="Identificacion"
-          />
-          <input
-            type="text"
-            class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-            placeholder="Hora de Finalización"
-          />
-          <input
-            type="text"
-            class="w-full p-2 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-            placeholder="Fecha"
+            placeholder="Cantidad de gasolina en litros"
           />
         </div>
       </div>
@@ -73,13 +41,12 @@
 import DashboardlogoComponent from "@/components/Dashboardlogo.vue";
 // @ is an alias to /src
 export default {
-  name: "PersonalComponent",
+  name: "OxigenacionComponent",
   components: {
     DashboardlogoComponent,
   },
 };
 </script>
-
 <style lang="scss" scoped>
 .bg-white {
   margin-top: 1cm;
@@ -108,6 +75,7 @@ export default {
 input {
   box-shadow: 7px 8px 9px rgba(0, 0, 0, 0.1);
   background-color: rgba($color: #edebeb, $alpha: 0.6);
+  margin-top: 1cm;
   //a0a4a3 edebeb
 }
 </style>
