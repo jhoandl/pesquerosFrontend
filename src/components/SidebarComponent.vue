@@ -147,12 +147,12 @@ export default {
             {
               label: "Alimentación",
               isActiveChild: false,
-              path: "",
+              path: "/Alimentacion",
             },
             {
               label: "Oxigenación",
               isActiveChild: false,
-              path: "",
+              path: "/Oxigenacion",
             },
           ],
         },

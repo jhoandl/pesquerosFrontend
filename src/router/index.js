@@ -5,6 +5,8 @@ import Login from "../views/Login.vue";
 import RecoveryPassword from "../views/RecoveryPassword.vue";
 import UpdatePassword from "../views/UpdatePassword.vue";
 import Personal from "../views/Personal.vue";
+import Alimentacion from "../views/Alimentacion.vue";
+import Oxigenacion from "../views/Oxigenacion.vue";
 
 Vue.use(VueRouter);
 
@@ -22,6 +24,24 @@ const routes = [
     path: "/personal",
     name: "personal",
     component: Personal,
+    meta: {
+      requiresAuth: true,
+      hideNavigation: false,
+    },
+  },
+  {
+    path: "/Alimentacion",
+    name: "Alimentacion",
+    component: Alimentacion,
+    meta: {
+      requiresAuth: true,
+      hideNavigation: false,
+    },
+  },
+  {
+    path: "/Oxigenacion",
+    name: "Oxigenacion",
+    component: Oxigenacion,
     meta: {
       requiresAuth: true,
       hideNavigation: false,
