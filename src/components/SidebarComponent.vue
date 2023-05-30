@@ -1,18 +1,17 @@
 <template>
   <div>
     <!-- <button @click="toggleSidebar">Toggle Sidebar</button> -->
-    <div
-      class="sidebar"
-      :class="['sidebar', { 'sidebar-hide': sidebarVisible }]"
-    >
-      <div class="side-content">
+    <div class="sidebar">
+      <div class="side-content dark:bg-slate-800 dark:text-white">
         <div class="header">
           <h1 class="sidebar-title">
             <i class="fa-solid fa-fish"></i>
-            PESQUEROS {{ sidebarVisible }}
+            PESQUEROS
           </h1>
         </div>
-        <div class="w-full cursor-pointer ml-auto mr-auto content-menu">
+        <div
+          class="w-full cursor-pointer ml-auto mr-auto content-menu dark:bg-slate-800"
+        >
           <ul class="mt-6">
             <li
               v-for="(item, index) in menuItems"
@@ -22,7 +21,7 @@
               <router-link
                 v-if="item.path != ''"
                 :to="item.path"
-                class="flex items-center px-4 py-2 text-black"
+                class="flex items-center px-4 py-2 text-black dark:text-white"
                 :class="{ 'bg-gray-300 text-black': item.isActive }"
                 @click="toggleCollapse(index)"
               >
@@ -40,7 +39,7 @@
               </router-link>
               <a
                 v-else
-                class="flex items-center px-4 py-2 text-black"
+                class="flex items-center px-4 py-2 text-black dark:text-white"
                 :class="{ 'bg-gray-300 text-black': item.isActive }"
                 @click="toggleCollapse(index)"
               >
@@ -57,7 +56,7 @@
                 ></i>
               </a>
               <ul
-                class="collapsible"
+                class="collapsible dark:bg-slate-600"
                 v-if="item.children.length > 0"
                 :style="{
                   maxHeight: item.isCollapsed
@@ -99,8 +98,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   name: "SidebarComponent",
   data() {
@@ -164,24 +161,9 @@ export default {
           children: [],
         },
       ],
-      sidebarVisible: true,
+      sidebarVisible: false,
+      isDarkMode: localStorage.getItem("dark"),
     };
-  },
-  computed: mapState({
-    sidebarVisible: (state) => state.sidebarVisible,
-  }),
-  watch: {
-    // Observa cambios en el elemento del localStorage
-    "$store.state.toggle": {
-      handler: function (newVal) {
-        // Haz algo con el nuevo valor, como asignarlo a una propiedad del componente
-        console.log("entro", newVal);
-        this.sidebarVisible = newVal;
-      },
-      // Configura el parámetro 'immediate' como 'true' para obtener el valor actual del localStorage
-      // cuando se crea el componente
-      immediate: true,
-    },
   },
   methods: {
     toggleCollapse(index) {
@@ -235,7 +217,6 @@ export default {
 }
 .side-content {
   background-color: rgba($color: #ffffff, $alpha: 1);
-  // height: 100vh;
 }
 .header {
   display: flex;

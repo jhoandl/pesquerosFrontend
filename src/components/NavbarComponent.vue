@@ -1,40 +1,43 @@
 <template>
-  <div class="navbar dark">
-    <div class="navbar-content bg-white ml-auto mr-auto mt-4 h-11 rounded-xl">
+  <div class="">
+    <div
+      class="navbar-content bg-white ml-auto mr-auto mt-4 h-11 rounded-xl dark:bg-slate-800"
+    >
       <div>
         <div class="flex items-center ml-10">
           <button
-            @click="toggleSidebar()"
-            class="text-gray-600 hover:text-gray-800 focus:outline-none mt-2"
+            @click="toggleExpandedMode()"
+            class="text-gray-600 hover:text-gray-800 focus:outline-none mt-2 dark:text-white"
           >
             <i class="fas fa-bars text-xl"></i>
           </button>
         </div>
         <div class="flex accion-nav -mt-7 mr-10">
           <button
-            class="text-gray-600 hover:text-gray-800 focus:outline-none float-right mr-5"
+            class="text-gray-600 hover:text-gray-800 focus:outline-none float-right mr-5 dark:text-white"
           >
             <i class="fas fa-globe text-xl"></i>
           </button>
           <button
-            class="text-gray-600 hover:text-gray-800 focus:outline-none mr-5"
+            class="text-gray-600 hover:text-gray-800 focus:outline-none mr-5 dark:text-white"
           >
             <i class="fas fa-bell text-xl"></i>
           </button>
           <button
-            class="text-gray-600 hover:text-gray-800 focus:outline-none"
+            class="text-gray-600 hover:text-gray-800 focus:outline-none dark:text-white"
             @click="toggleDarkMode"
           >
             <i v-if="darkMode" class="fa-solid fa-sun"></i>
             <i v-else class="fas fa-moon text-xl"></i>
-            <!-- <i class="fa-solid fa-circle-half-stroke text-xl"></i> -->
           </button>
           <div class="ml-3">
-            <span class="text-gray-600 font-medium -mt-5 mr-2 relative">
+            <span
+              class="text-gray-600 font-medium -mt-5 mr-2 relative dark:text-white"
+            >
               Admin
             </span>
             <button
-              class="text-gray-600 hover:text-gray-800 focus:outline-none mr-5"
+              class="text-gray-600 hover:text-gray-800 focus:outline-none mr-5 dark:text-white"
             >
               <i class="fas fa-user-circle text-xl"></i>
             </button>
@@ -52,10 +55,11 @@
 
 <script>
 import darkModeMixin from "@/mixins/darkModeMixin";
+import sidebarExpandedMixin from "@/mixins/sidebarExpandedMixin";
 
 export default {
   name: "NavbarComponent",
-  mixins: [darkModeMixin],
+  mixins: [darkModeMixin, sidebarExpandedMixin],
   data() {
     return {
       sidebarVisible: true,
@@ -74,7 +78,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .navbar {
-  background-color: rgba($color: #cacfd2, $alpha: 80);
+  // background-color: rgba($color: #cacfd2, $alpha: 80);
   // height: 100vh;
 }
 .navbar-content {

@@ -1,30 +1,32 @@
 <template>
   <div>
-    <h1 style="margin-top: 2cm" class="text-xl font-bold">Oxigenación</h1>
+    <h1 style="margin-top: 2cm" class="text-xl font-bold dark:text-white">
+      Oxigenación
+    </h1>
     <button class="rounded-full bg-green-500 text-white py-2 px-4 butonAdd">
       <i class="fas fa-plus"></i>
       Nuevo
     </button>
-    <div class="bg-white rounded-lg shadow-md p-4">
+    <div class="bg-white rounded-lg shadow-md p-4 dark:bg-slate-800">
       <div class="flex">
         <div class="w-1/2 p-4">
           <input
             type="text"
-            class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+            class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent dark:placeholder:text-white dark:bg-slate-600 dark:focus:ring-slate-900"
             placeholder="Hora de encendido"
           />
         </div>
         <div class="w-1/2 p-4">
           <input
             type="text"
-            class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+            class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent dark:placeholder:text-white dark:bg-slate-600 dark:focus:ring-slate-900"
             placeholder="Hora de apagado"
           />
         </div>
         <div class="w-1/2 p-4">
           <input
             type="text"
-            class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+            class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent dark:placeholder:text-white dark:bg-slate-600 dark:focus:ring-slate-900"
             placeholder="Cantidad de gasolina en litros"
           />
         </div>
