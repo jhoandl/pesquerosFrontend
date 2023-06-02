@@ -7,20 +7,20 @@ import style from "./style.css";
 
 Vue.config.productionTip = false;
 
-function setDarkMode() {
-  const htmlClasses = document.querySelector("#app").classList;
-  if (localStorage.getItem("dark")) {
-    if (localStorage.getItem("dark") === "true") {
-      htmlClasses.add("dark");
-    } else {
-      htmlClasses.remove("dark");
-    }
-  } else {
-    localStorage.setItem("dark", false);
-  }
-}
+// function setDarkMode() {
+//   const htmlClasses = document.querySelector("#app").classList;
+//   if (localStorage.getItem("dark")) {
+//     if (localStorage.getItem("dark") === "true") {
+//       htmlClasses.add("dark");
+//     } else {
+//       htmlClasses.remove("dark");
+//     }
+//   } else {
+//     localStorage.setItem("dark", false);
+//   }
+// }
 
-setDarkMode();
+// setDarkMode();
 
 new Vue({
   router,
@@ -28,4 +28,24 @@ new Vue({
   style,
   // icons,
   render: (h) => h(App),
+  // mounted() {
+  //   this.setDarkMode();
+  // },
+  // methods: {
+  //   setDarkMode() {
+  //     const htmlClasses = document.querySelector("#app").classList;
+  //     const isDarkMode = localStorage.getItem("dark") === "true";
+
+  //     if (isDarkMode) {
+  //       htmlClasses.add("dark");
+  //     } else {
+  //       htmlClasses.remove("dark");
+  //     }
+  //   },
+  //   toggleDarkMode() {
+  //     const isDarkMode = localStorage.getItem("dark") === "true";
+  //     localStorage.setItem("dark", !isDarkMode);
+  //     this.setDarkMode();
+  //   },
+  // },
 }).$mount("#app");

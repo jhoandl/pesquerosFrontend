@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="['app', { 'dark-mode': darkMode }]">
+  <div id="app" :class="['app', { dark: isDarkMode }]">
     <router-view class="w-full" v-show="$route.meta.hideNavigation" />
     <div v-show="!$route.meta.hideNavigation">
       <template>
@@ -11,7 +11,7 @@
           <div class="contentView flex flex-col h-screen">
             <NavbarComponent
               v-show="!$route.meta.hideNavigation"
-              class="navbar"
+              class="navbar bg-gray-300 dark:bg-slate-700"
             />
           </div>
         </div>
@@ -49,7 +49,7 @@ export default {
   color: #2c3e50;
 }
 .dark-mode {
-  @import "@/assets/css/dark-mode.css";
+  @import "@/assets/css/dark-mode.css"; // Importa el archivo SCSS del modo oscuro
 }
 .contenedor {
   display: grid;
@@ -72,7 +72,7 @@ export default {
   max-height: 89vh;
   height: 89vh;
   overflow: hidden;
-  background-color: rgba($color: #cacfd2, $alpha: 80);
+  // background-color: rgba($color: #cacfd2, $alpha: 80);
 }
 .login-container {
   justify-content: center;

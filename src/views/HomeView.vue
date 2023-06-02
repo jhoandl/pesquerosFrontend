@@ -1,25 +1,37 @@
 <template>
   <div>
     <div class="grid grid-cols-3 gap-4">
-      <div class="bg-white rounded-lg shadow-md p-4 cursor-pointer">
+      <div
+        class="bg-white rounded-lg shadow-md p-4 cursor-pointer dark:bg-slate-800"
+      >
         <div class="flex items-center mb-4 float-right">
-          <h2 class="text-lg font-bold text-gray-800 mr-5">Producción</h2>
+          <h2 class="text-lg font-bold text-gray-800 mr-5 dark:text-white">
+            Producción
+          </h2>
           <span class="text-8xl primary mr-2">
             <i class="fas fa-chart-pie"></i>
           </span>
         </div>
       </div>
-      <div class="bg-white rounded-lg shadow-md p-4 cursor-pointer">
+      <div
+        class="bg-white rounded-lg shadow-md p-4 cursor-pointer dark:bg-slate-800"
+      >
         <div class="flex items-center mb-4 float-right">
-          <h2 class="text-lg font-bold text-gray-800 mr-5">Ganancias</h2>
+          <h2 class="text-lg font-bold text-gray-800 mr-5 dark:text-white">
+            Ganancias
+          </h2>
           <span class="text-8xl primary mr-2">
             <i class="fa-solid fa-chart-bar"></i>
           </span>
         </div>
       </div>
-      <div class="bg-white rounded-lg shadow-md p-4 cursor-pointer">
+      <div
+        class="bg-white rounded-lg shadow-md p-4 cursor-pointer dark:bg-slate-800"
+      >
         <div class="flex items-center mb-4 float-right">
-          <h2 class="text-lg font-bold text-gray-800 mr-5">Reportes</h2>
+          <h2 class="text-lg font-bold text-gray-800 mr-5 dark:text-white">
+            Reportes
+          </h2>
           <span class="text-8xl primary mr-2">
             <i class="fa-solid fa-clipboard"></i>
           </span>
