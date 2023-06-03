@@ -21,7 +21,6 @@
 </template>
 
 <script>
-// import Login from "./views/Login.vue";
 import darkModeMixin from "@/mixins/darkModeMixin";
 import NavbarComponent from "@/components/NavbarComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
@@ -29,7 +28,6 @@ import SidebarComponent from "@/components/SidebarComponent.vue";
 export default {
   mixins: [darkModeMixin],
   components: {
-    // Login,
     NavbarComponent,
     SidebarComponent,
   },
@@ -50,9 +48,6 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-// .dark-mode {
-//   @import "@/assets/css/dark-mode.css"; // Importa el archivo SCSS del modo oscuro
-// }
 .contenedor {
   display: grid;
   grid-template-columns: 2fr 9fr; /* 10% - 90% */
@@ -74,15 +69,8 @@ export default {
   max-height: 89vh;
   height: 89vh;
   overflow: hidden;
-  // background-color: rgba($color: #cacfd2, $alpha: 80);
 }
 .login-container {
-  // position: absolute;
-  // top: 0;
-  // left: 0;
-  // right: 0;
-  // bottom: 0;
-  // display: flex;
   justify-content: center;
   align-items: center;
 }

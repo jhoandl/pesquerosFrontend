@@ -9,38 +9,57 @@
       <h3 class="text-2xl font-medium mb-4 font-mono text-white">
         INGRESE SUS CREDENCIALES
       </h3>
-      <form>
-        <div class="mb-4 input-group-prepend flex">
-          <!-- <div class="input-group-prepend"> -->
+      <form @submit.prevent="login()">
+        <div class="relative mb-4 input-group-prepend flex">
           <span class="input-group-text rounded-l-sm">
             <i class="fas fa-user mt-2 ml-1"></i>
           </span>
-          <!-- </div> -->
           <input
+            autocomplete="off"
             placeholder="Usuario"
             type="text"
-            id="email"
+            name="Usuario"
             class="w-full rounded-r-sm py-2 px-3 username"
+            v-model="form.username"
+            v-validate="'required'"
+            data-vv-rules="required"
           />
+          <small
+            class="text-red-500 text-xs absolute top-10 mt-2 mr-2"
+            v-if="errors && errors.has('Usuario')"
+          >
+            <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+            {{ errors.first("Usuario") }}
+          </small>
         </div>
-        <div class="mb-4 input-group-prepend flex">
+        <div class="relative mb-4 input-group-prepend flex top-4">
           <span class="input-group-text rounded-l-sm">
             <i class="fa-solid fa-lock mt-2 ml-1"></i>
           </span>
           <input
             placeholder="Contraseña"
             type="password"
-            id="password"
+            name="Contraseña"
             class="w-full rounded-r-sm py-2 px-3 password"
+            v-model="form.password"
+            v-validate="'required'"
+            data-vv-rules="required"
           />
+          <small
+            class="text-red-500 text-xs absolute top-10 mt-2 mr-2"
+            v-if="errors && errors.has('Contraseña')"
+          >
+            <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+            {{ errors.first("Contraseña") }}
+          </small>
         </div>
         <router-link
           to="passwordRecovery"
-          class="cursor-pointer text-white text-xs mr-5 text-right flex justify-end"
+          class="cursor-pointer text-white text-xs mr-5 text-right flex justify-end top-2 relative"
         >
           ¿Olvidaste tu contraseña?
         </router-link>
-        <div class="flex justify-center">
+        <div class="flex justify-center relative top-4">
           <button
             @click.prevent="login()"
             type="submit"
@@ -55,17 +74,56 @@
 </template>
 
 <script>
+import User from "../model/user";
+
 export default {
   name: "LoginComponent",
+  data() {
+    return {
+      form: new User("", ""),
+    };
+  },
   methods: {
     login() {
-      localStorage.setItem("user", true);
-      this.$router.push({ name: "home" });
-      // this.$emit("login-success");
+      this.$validator.validateAll().then((success) => {
+        if (success) {
+          this.$store
+            .dispatch("auth/login", this.form)
+            .then((res) => {
+              localStorage.setItem("accessToken", res.token);
+              const userData = {
+                email: res.email,
+                id: res.id,
+                roles: res.roles,
+                username: res.username,
+              };
+              localStorage.setItem("user", JSON.stringify(userData));
+              console.log("res ", res);
+            })
+            .catch((err) => {
+              console.log("error ", err);
+            })
+            .finally(() => {
+              this.$toast.success("Bienvenido a pesqueros", {
+                position: "top-right",
+                timeout: 5000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButton: true,
+                hideProgressBar: false,
+                closeButton: "button",
+                icon: true,
+              });
+              this.$router.push({ name: "home" });
+            });
+        }
+      });
     },
     passwordRecovery() {
       this.$router.push({ name: "passwordRecovery" });
-      // this.$emit("login-success");
     },
   },
 };
