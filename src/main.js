@@ -8,7 +8,12 @@ import es from "vee-validate/dist/locale/es";
 import axiosPlugin from "./axios";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import VueGoodTablePlugin from "vue-good-table";
 
+// import the styles
+import "vue-good-table/dist/vue-good-table.css";
+
+Vue.use(VueGoodTablePlugin);
 Vue.use(VeeValidate);
 VeeValidate.Validator.localize("es", es);
 Vue.use(axiosPlugin);
