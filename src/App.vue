@@ -72,7 +72,6 @@ export default {
   max-height: 89vh;
   height: 89vh;
   overflow: hidden;
-  // background-color: rgba($color: #cacfd2, $alpha: 80);
 }
 .login-container {
   justify-content: center;

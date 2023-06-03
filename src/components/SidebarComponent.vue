@@ -192,7 +192,8 @@ export default {
       parent.isActive = false;
     },
     singOut() {
-      localStorage.setItem("user", false);
+      localStorage.removeItem("user");
+      localStorage.removeItem("accessToken");
       this.$router.push({ name: "login" });
     },
   },
@@ -213,7 +214,6 @@ export default {
 
 .sidebar {
   background-color: rgba($color: #cacfd2, $alpha: 80);
-  // height: 100vh;
 }
 .side-content {
   background-color: rgba($color: #ffffff, $alpha: 1);
