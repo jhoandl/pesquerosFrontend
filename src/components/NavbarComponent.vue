@@ -59,7 +59,7 @@
       </div>
     </div>
     <div class="w-full flex-1 flex justify-center">
-      <div class="w-3/4 mt-10 views">
+      <div class="w-5/6 mt-10 views">
         <router-view class="" />
       </div>
     </div>

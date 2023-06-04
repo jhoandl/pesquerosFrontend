@@ -98,15 +98,10 @@ export default {
                 username: res.username,
               };
               localStorage.setItem("user", JSON.stringify(userData));
-              console.log("res ", res);
-            })
-            .catch((err) => {
-              console.log("error ", err);
-            })
-            .finally(() => {
+              this.$router.push({ name: "home" });
               this.$toast.success("Bienvenido a pesqueros", {
                 position: "top-right",
-                timeout: 5000,
+                timeout: 3000,
                 closeOnClick: true,
                 pauseOnFocusLoss: true,
                 pauseOnHover: true,
@@ -117,8 +112,24 @@ export default {
                 closeButton: "button",
                 icon: true,
               });
-              this.$router.push({ name: "home" });
-            });
+            })
+            .catch((err) => {
+              console.log("error ", err);
+              this.$toast.error("Usuario o contraseña incorrecta", {
+                position: "top-right",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButton: true,
+                hideProgressBar: false,
+                closeButton: "button",
+                icon: true,
+              });
+            })
+            .finally(() => {});
         }
       });
     },
