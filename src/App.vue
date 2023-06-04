@@ -48,9 +48,12 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+.dark-mode {
+  @import "@/assets/css/dark-mode.css"; // Importa el archivo SCSS del modo oscuro
+}
 .contenedor {
   display: grid;
-  grid-template-columns: 2fr 9fr; /* 10% - 90% */
+  grid-template-columns: 2fr 9fr;
 }
 .navbar {
   height: 100vh;
