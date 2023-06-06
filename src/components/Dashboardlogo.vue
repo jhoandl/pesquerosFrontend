@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dashboard-logo-component">
     <img src="../assets/pez.png" alt="Imagen Dashboard" />
   </div>
 </template>
@@ -14,11 +14,17 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.dashboard-logo-component {
+  position: relative;
+}
 img {
+  margin-top: -50%;
+  position: relative;
   display: block;
   margin: 0 auto;
   width: 40%;
-  opacity: 0.2;
+  z-index: -1;
+  opacity: 0.5;
   margin-top: -4cm;
 }
 </style>

@@ -77,24 +77,165 @@
         </button>
       </div>
     </form>
+    <div
+      class="bg-white rounded-lg shadow-md p-4 dark:bg-slate-800 z-10 overflow-auto"
+    >
+      <vue-good-table
+        :columns="columns"
+        :rows="rows"
+        id="element-to-pdf"
+        styleClass="bg-gray-300 dark:bg-slate-600 rounded-lg w-full dark:border-b dark:border-collapse dark:border-slate-800 dark:text-white placeholder dark:placeholderD border-collapse border border-gray-200"
+      >
+        <template slot="table-row" slot-scope="props">
+          <div v-if="props.column.field === 'onTime'" class="font-mono">
+            <span class="text-nowrap">{{ props.row.onTime }}</span>
+          </div>
+          <div
+            v-if="props.column.field === 'gasolineQuality'"
+            class="font-mono"
+          >
+            <span class="text-nowrap">{{ props.row.gasolineQuality }}</span>
+          </div>
+          <div v-if="props.column.field === 'endTime'" class="font-mono">
+            <span class="text-nowrap">{{ props.row.endTime }}</span>
+          </div>
+          <div v-if="props.column.field === 'action'" class="font-mono flex">
+            <a
+              @click.prevent="deleteOxigenation(props.row.id)"
+              class="rounded-md mr-auto text-xs bg-red-500 text-white p-3 cursor-pointer"
+            >
+              <i class="fa-solid fa-trash"></i>
+            </a>
+            <a
+              @click.prevent="generatepdf()"
+              class="rounded-md ml-auto text-xs bg-red-500 text-white p-3 cursor-pointer"
+            >
+              <i class="fa-regular fa-file-pdf"></i>
+            </a>
+          </div>
+        </template>
+      </vue-good-table>
+    </div>
+
     <DashboardlogoComponent />
   </div>
 </template>
 <script>
 import DashboardlogoComponent from "@/components/Dashboardlogo.vue";
 import oxigenation from "../model/oxigenation";
+import OxigenationColumns from "@/views/js/oxigenation";
+import html2pdf from "html2pdf.js";
+
 // @ is an alias to /src
 export default {
   name: "OxigenacionComponent",
   data() {
     return {
+      columns: OxigenationColumns,
+      rows: [],
+      paseSize: 10,
+      pageNumber: 0,
       form: new oxigenation("", "", ""),
     };
+  },
+  mounted() {
+    this.getAlloxigenation();
   },
   components: {
     DashboardlogoComponent,
   },
   methods: {
+    //generador de reportes pdf
+    generatepdf() {
+      var element = document.getElementById("element-to-pdf");
+      var opt = {
+        margin: 1,
+        filename: "reporte.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      };
+
+      // New Promise-based usage:
+      html2pdf().from(element).set(opt).save();
+
+      // Old monolithic-style usage:
+      html2pdf(element, opt);
+    },
+    //metood para obtenr los campos creados en la tabla
+    getAlloxigenation() {
+      this.$http
+        .get("/api/Oxygenation/read", {
+          params: {
+            pageSize: this.paseSize,
+            pageNumber: this.pageNumber,
+          },
+        })
+        .then((res) => {
+          console.log("res Oxygenation ", res.data);
+          this.rows = res.data.content;
+        });
+    },
+    //metodo para eliminar una oxigenacion, se pasa el id para identificar cual se va a elimianr
+    deleteOxigenation(id) {
+      this.$swal({
+        title: "¿Esta seguro de eliminar el registro?",
+        text: "¡No podrás revertir esto!",
+        icon: "warning",
+        showCancelButton: true,
+        allowOutsideClick: false,
+        confirmButtonText: "Aceptar",
+        cancelButtonText: "Cancelar",
+        customClass: {
+          confirmButton:
+            "bg-green-500/50 text-white cuursor-pointer rounded-full border-none p-1 w-24",
+          cancelButton:
+            "bg-red-500/50 relative ml-2 text-white rounded-full p-1 w-24",
+        },
+        buttonsStyling: false,
+      }).then((result) => {
+        if (result.value) {
+          this.$http
+            .delete(`/api/Oxygenation/delete-id/${id}`)
+            .then(() => {
+              this.$toast.success("oxigancion eliminado exitosamente", {
+                position: "top-right",
+                timeout: 1500,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButton: true,
+                hideProgressBar: false,
+                closeButton: "button",
+                icon: true,
+              });
+            })
+            .catch((err) => {
+              console.log("error ", err);
+              this.$toast.error("Error eliminando el registro", {
+                position: "top-right",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButton: true,
+                hideProgressBar: false,
+                closeButton: "button",
+                icon: true,
+              });
+            })
+            .finally(() => {
+              setTimeout(() => {
+                this.getAlloxigenation();
+              }, 2000);
+            });
+        }
+      });
+    },
     saveOxigenation() {
       this.$validator.validateAll().then((success) => {
         if (success) {
@@ -114,6 +255,7 @@ export default {
                 closeButton: "button",
                 icon: true,
               });
+              this.getAlloxigenation();
             })
             .catch(() => {
               this.$toast.error("Error", {

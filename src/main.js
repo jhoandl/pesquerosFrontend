@@ -9,15 +9,21 @@ import axiosPlugin from "./axios";
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import VueGoodTablePlugin from "vue-good-table";
+import { VueSelect } from "vue-select";
+import VueSweetalert2 from "vue-sweetalert2";
 
 // import the styles
 import "vue-good-table/dist/vue-good-table.css";
+import "vue-select/dist/vue-select.css";
+import "sweetalert2/dist/sweetalert2.min.css";
 
 Vue.use(VueGoodTablePlugin);
 Vue.use(VeeValidate);
 VeeValidate.Validator.localize("es", es);
 Vue.use(axiosPlugin);
 Vue.use(Toast);
+Vue.use(VueSweetalert2);
+Vue.component("v-select", VueSelect);
 
 Vue.config.productionTip = false;
 
