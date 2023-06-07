@@ -1,58 +1,58 @@
 <template>
   <div>
     <h1 style="margin-top: 2cm" class="text-xl font-bold dark:text-white">
-      Alimentación
+      Empresa
     </h1>
     <button class="rounded-full bg-green-500 text-white py-2 px-4 butonAdd">
       <i class="fas fa-plus"></i>
       Nuevo
     </button>
-    <form @submit.prevent="saveAlimentacion()">
+    <form @submit.prevent="saveEmpresa()">
       <div class="bg-white rounded-lg shadow-md p-4 dark:bg-slate-800">
         <div class="flex">
           <div class="w-1/2 p-4">
             <input
               autocomplete="off"
               type="text"
-              name="dateOfsale"
+              name="name"
               class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent dark:placeholder:text-white dark:bg-slate-600 dark:focus:ring-slate-900"
-              placeholder="Hora de alimentación"
-              v-model="form.dateOfsale"
+              placeholder="Nombre de empresa"
+              v-model="form.name"
               v-validate="'required'"
               data-vv-rules="required"
             />
             <small
               class="text-red-500 text-xs absolute top-10 mt-2 mr-2"
-              v-if="errors && errors.has('dateOfsale')"
+              v-if="errors && errors.has('name')"
             >
               <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
-              {{ errors.first("dateOfsale") }}
+              {{ errors.first("name") }}
             </small>
           </div>
           <div class="w-1/2 p-4">
             <input
               autocomplete="off"
               type="cantidad"
-              name="quantitysold"
+              name="nit"
               class="w-full p-2 mb-4 border-2 border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent dark:placeholder:text-white dark:bg-slate-600 dark:focus:ring-slate-900"
-              placeholder="Cantidad en Kilogramos"
-              v-model="form.quantitysold"
+              placeholder="NIT"
+              v-model="form.nit"
               v-validate="'required'"
               data-vv-rules="required"
             />
             <small
               class="text-red-500 text-xs absolute top-10 mt-2 mr-2"
-              v-if="errors && errors.has('quantitysold')"
+              v-if="errors && errors.has('nit')"
             >
               <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
-              {{ errors.first("quantitysold") }}
+              {{ errors.first("nit") }}
             </small>
           </div>
         </div>
 
         <button
           class="rounded-full bg-green-500 text-white py-2 px-4 float-right butoncard"
-          @click.prevent="saveAlimentacion()"
+          @click.prevent="saveEmpresa()"
           type="submit"
         >
           Guardar
@@ -69,24 +69,18 @@
         <div v-if="props.column.field === 'id'" class="font-mono">
           <span class="text-nowrap">{{ props.row.id }}</span>
         </div>
-        <div v-if="props.column.field === 'dateOfsale'" class="font-mono">
-          <span class="text-nowrap">{{ props.row.dateOfsale }}</span>
+        <div v-if="props.column.field === 'name'" class="font-mono">
+          <span class="text-nowrap">{{ props.row.name }}</span>
         </div>
-        <div v-if="props.column.field === 'quantitysold'" class="font-mono">
-          <span class="text-nowrap">{{ props.row.quantitysold }}</span>
+        <div v-if="props.column.field === 'nit'" class="font-mono">
+          <span class="text-nowrap">{{ props.row.nit }}</span>
         </div>
         <div v-if="props.column.field === 'action'" class="font-mono flex">
           <a
-            @click.prevent="deleteAlimentacion(props.row.id)"
+            @click.prevent="deleteEmpresa(props.row.id)"
             class="rounded-md mr-auto text-xs bg-red-500 text-white p-3 cursor-pointer"
           >
             <i class="fa-solid fa-trash"></i>
-          </a>
-          <a
-            @click.prevent="generatepdf()"
-            class="rounded-md ml-auto text-xs bg-red-500 text-white p-3 cursor-pointer"
-          >
-            <i class="fa-regular fa-file-pdf"></i>
           </a>
         </div>
       </template>
@@ -96,30 +90,30 @@
 </template>
 <script>
 import DashboardlogoComponent from "@/components/Dashboardlogo.vue";
-import alimentacion from "../model/alimentacion";
-import AlimentaciontionColumns from "@/views/js/alimentacion";
+import empresa from "../model/empresa";
+import EmpresaColumns from "@/views/js/empresa";
 // @ is an alias to /src
 export default {
-  name: "AlimentacionComponent",
+  name: "EmpresaComponent",
   data() {
     return {
-      columns: AlimentaciontionColumns,
+      columns: EmpresaColumns,
       rows: [],
       paseSize: 10,
       pageNumber: 0,
-      form: new alimentacion("", "", ""),
+      form: new empresa("", "", ""),
     };
   },
   mounted() {
-    this.getAllAlimentacion();
+    this.getAllEmpresa();
   },
   components: {
     DashboardlogoComponent,
   },
   methods: {
-    getAllAlimentacion() {
+    getAllEmpresa() {
       this.$http
-        .get("/api/feeding/read", {
+        .get("/api/company/read", {
           params: {
             pageSize: this.paseSize,
             pageNumber: this.pageNumber,
@@ -131,7 +125,7 @@ export default {
         });
     },
 
-    deleteAlimentacion(id) {
+    deleteEmpresa(id) {
       this.$swal({
         title: "¿Esta seguro de eliminar el registro?",
         text: "¡No podrás revertir esto!",
@@ -150,9 +144,9 @@ export default {
       }).then((result) => {
         if (result.value) {
           this.$http
-            .delete(`/api/feeding/delete-id/${id}`)
+            .delete(`/api/company/delete-id/${id}`)
             .then(() => {
-              this.$toast.success("oxigancion eliminado exitosamente", {
+              this.$toast.success("empresa eliminado exitosamente", {
                 position: "top-right",
                 timeout: 1500,
                 closeOnClick: true,
@@ -184,17 +178,17 @@ export default {
             })
             .finally(() => {
               setTimeout(() => {
-                this.getAllAlimentacion();
+                this.getAllEmpresa();
               }, 2000);
             });
         }
       });
     },
-    saveAlimentacion() {
+    saveEmpresa() {
       this.$validator.validateAll().then((success) => {
         if (success) {
           this.$http
-            .post("/api/feeding/create-feeding", this.form)
+            .post("/api/company/create-company", this.form)
             .then(() => {
               this.$toast.success("Se creo correctamente", {
                 position: "top-right",
@@ -209,7 +203,7 @@ export default {
                 closeButton: "button",
                 icon: true,
               });
-              this.getAllAlimentacion();
+              this.getAllEmpresa();
             })
             .catch(() => {
               this.$toast.error("Error", {
