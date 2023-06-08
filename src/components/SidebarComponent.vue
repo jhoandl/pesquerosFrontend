@@ -122,11 +122,11 @@ export default {
               isActiveChild: false,
               path: "",
             },
-            {
-              label: "Cargo",
-              isActiveChild: false,
-              path: "",
-            },
+            // {
+            //   label: "Cargo",
+            //   isActiveChild: false,
+            //   path: "",
+            // },
             {
               label: "Personal",
               isActiveChild: false,
@@ -153,13 +153,13 @@ export default {
             },
           ],
         },
-        {
-          label: "Estadisticas",
-          icon: "fa-solid fa-chart-bar",
-          isActive: false,
-          path: "",
-          children: [],
-        },
+        // {
+        //   label: "Estadisticas",
+        //   icon: "fa-solid fa-chart-bar",
+        //   isActive: false,
+        //   path: "",
+        //   children: [],
+        // },
       ],
       sidebarVisible: false,
       isDarkMode: localStorage.getItem("dark"),

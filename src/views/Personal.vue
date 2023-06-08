@@ -3,12 +3,17 @@
     <h1 style="margin-top: 0cm" class="text-xl font-bold dark:text-white">
       Registro de personal
     </h1>
-    <button class="rounded-full bg-green-500 text-white py-2 px-4 butonAdd">
+    <button
+      class="rounded-full bg-green-500 text-white py-2 px-4 butonAdd"
+      @click="newStaff = !newStaff"
+    >
       <i class="fas fa-plus"></i>
       Nuevo
     </button>
     <div
-      class="bg-white rounded-lg shadow-md p-4 dark:bg-slate-800 card-form overflow-auto"
+      v-if="newStaff"
+      class="bg-white rounded-lg shadow-md p-4 dark:bg-slate-800 card-form overflow-auto transition-transform duration-300 transform"
+      :class="{ 'translate-y-0': newStaff, '-translate-y-full': !newStaff }"
     >
       <form @submit.prevent="save()" class="z-10">
         <div class="flex">
@@ -198,6 +203,9 @@
       <vue-good-table
         :columns="columns"
         :rows="rows"
+        :pagination-options="{
+          enabled: false,
+        }"
         styleClass="bg-gray-300 dark:bg-slate-600 rounded-lg w-full dark:border-b dark:border-collapse dark:border-slate-800 dark:text-white placeholder dark:placeholderD border-collapse border border-gray-200"
       >
         <template slot="table-row" slot-scope="props">
@@ -239,6 +247,14 @@
             ></a>
           </div>
         </template>
+        <!-- slot-scope="props" -->
+        <!-- <template slot="pagination-bottom">
+          <Paginator
+            :rows="totalPages"
+            :totalRecords="totalPages"
+            :rowsPerPageOptions="[10, 20, 30]"
+          />
+        </template> -->
       </vue-good-table>
     </div>
     <!-- <DashboardlogoComponent class="-top-96" /> -->
@@ -248,18 +264,21 @@
 // import DashboardlogoComponent from "@/components/Dashboardlogo.vue";
 import PersonalColumns from "@/views/js/PersonalColumns";
 import Staff from "../model/staff";
+// import Paginator from "primevue/paginator";
 // @ is an alias to /src
 export default {
   name: "PersonalComponent",
   components: {
-    // DashboardlogoComponent,
+    // Paginator,
   },
   data() {
     return {
       columns: PersonalColumns,
       rows: [],
-      paseSize: 10,
+      pageSize: 1000,
       pageNumber: 0,
+      currentPage: 1,
+      totalPages: 10,
       options: [
         {
           label: "Cedula de ciudadania",
@@ -272,6 +291,7 @@ export default {
       ],
       form: new Staff("", "", "", "", "", "", "", "", ""),
       companyOptions: [],
+      newStaff: false,
     };
   },
   mounted() {
@@ -283,13 +303,14 @@ export default {
       this.$http
         .get("/api/staff/read", {
           params: {
-            pageSize: this.paseSize,
-            pageNumber: this.pageNumber,
+            pageSize: this.pageSize,
+            pageNumber: this.currentPage - 1,
           },
         })
         .then((res) => {
           console.log("res staff ", res.data);
           this.rows = res.data.content;
+          this.totalPages = res.data.totalPages;
         });
     },
     save() {
@@ -421,6 +442,15 @@ export default {
             });
         }
       });
+    },
+    updateCurrentPage(pageNumber) {
+      this.currentPage = pageNumber;
+      // Aquí puedes realizar otras operaciones necesarias, como obtener los datos de la página seleccionada
+    },
+    updatePageSize(pageSize) {
+      this.pageSize = pageSize;
+      this.getAll();
+      // Aquí puedes realizar otras operaciones necesarias, como recargar los datos con el nuevo tamaño de página
     },
   },
 };

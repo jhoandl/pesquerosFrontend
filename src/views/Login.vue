@@ -96,6 +96,8 @@ export default {
                 id: res.id,
                 roles: res.roles,
                 username: res.username,
+                namesAndLastNames: res.namesAndLastNames,
+                phoneNumber: res.phoneNumber,
               };
               localStorage.setItem("user", JSON.stringify(userData));
               this.$router.push({ name: "home" });

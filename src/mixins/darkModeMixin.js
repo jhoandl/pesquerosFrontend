@@ -3,12 +3,12 @@ import { useDark, useToggle } from "@vueuse/core";
 export default {
   data() {
     return {
-      darkMode: true,
+      darkMode: false,
     };
   },
   created() {
     // Obtener el valor de modo oscuro del localStorage
-    const isDarkMode = localStorage.getItem("dark") === "true";
+    const isDarkMode = localStorage.getItem("dark") === "false";
     this.darkMode = isDarkMode;
     console.log("useDark ", useDark);
   },

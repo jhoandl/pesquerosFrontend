@@ -34,7 +34,7 @@
             <span
               class="text-gray-600 font-medium -mt-5 mr-2 relative dark:text-white"
             >
-              Admin
+              {{ user.username }}
             </span>
             <button
               @click="dropdownOpen = !dropdownOpen"
@@ -47,10 +47,10 @@
               ref="dropdown"
               class="absolute right-20 mt-3 w-48 bg-white rounded-lg shadow-xl dark:text-white dark:bg-slate-800 z-10"
             >
-              <a
-                href="#"
+              <router-link
+                to="profile"
                 class="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-slate-600 dark:hover:rounded-lg"
-                >Perfil</a
+                >Perfil</router-link
               >
               <!-- Agrega aquí otros enlaces del dropdown -->
             </div>
@@ -77,7 +77,11 @@ export default {
     return {
       sidebarVisible: true,
       dropdownOpen: false,
+      user: {},
     };
+  },
+  mounted() {
+    this.user = JSON.parse(localStorage.getItem("user"));
   },
   methods: {
     toggleSidebar() {
