@@ -198,7 +198,7 @@
       </form>
     </div>
     <div
-      class="bg-white rounded-lg shadow-md p-4 dark:bg-slate-800 z-10 overflow-auto"
+      class="bg-white rounded-lg shadow-md p-4 dark:bg-slate-800 z-10 overflow-y-auto h-auto"
     >
       <vue-good-table
         :columns="columns"

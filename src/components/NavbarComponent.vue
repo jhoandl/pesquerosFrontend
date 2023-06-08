@@ -60,7 +60,7 @@
     </div>
     <div class="w-full flex-1 flex justify-center">
       <div class="w-5/6 mt-10 views">
-        <router-view class="" />
+        <router-view />
       </div>
     </div>
   </div>
@@ -103,6 +103,7 @@ export default {
 <style scoped lang="scss">
 .navbar-content {
   width: 90%;
+  overflow: auto;
 }
 .accion-nav {
   float: right !important;
@@ -110,6 +111,5 @@ export default {
 .views {
   max-height: 89vh;
   height: 89vh;
-  overflow: hidden;
 }
 </style>

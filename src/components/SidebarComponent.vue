@@ -120,7 +120,7 @@ export default {
             {
               label: "Empresa",
               isActiveChild: false,
-              path: "",
+              path: "/empresa",
             },
             // {
             //   label: "Cargo",

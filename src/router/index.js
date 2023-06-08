@@ -8,10 +8,20 @@ import Personal from "../views/Personal.vue";
 import Alimentacion from "../views/Alimentacion.vue";
 import Oxigenacion from "../views/Oxigenacion.vue";
 import Perfil from "../views/Perfil.vue";
+import Empresa from "../views/Empresa.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/empresa",
+    name: "empresa",
+    component: Empresa,
+    meta: {
+      requiresAuth: true,
+      hideNavigation: false,
+    },
+  },
   {
     path: "/home",
     name: "home",

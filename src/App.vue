@@ -11,7 +11,7 @@
           <div class="contentView flex flex-col h-screen">
             <NavbarComponent
               v-show="!$route.meta.hideNavigation"
-              class="navbar bg-gray-300 dark:bg-slate-700"
+              class="navbar bg-gray-300 dark:bg-slate-700 overflow-y-auto"
             />
           </div>
         </div>
@@ -71,7 +71,6 @@ export default {
 .views {
   max-height: 89vh;
   height: 89vh;
-  overflow: hidden;
 }
 .login-container {
   justify-content: center;
