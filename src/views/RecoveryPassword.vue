@@ -12,24 +12,37 @@
         Ingrese su correo electronico y le enviaremos instrucciones para
         recuperar su contraseña.
       </h3>
-      <form>
+      <form @submit.prevent="send()">
         <div class="mb-4 input-group-prepend flex justify-center">
           <!-- <div class="input-group-prepend"> -->
           <span class="input-group-text rounded-l-sm">
             <i class="fa-solid fa-envelope mt-2 ml-1"></i>
           </span>
           <!-- </div> -->
-          <input
-            placeholder="Correo electronico"
-            type="email"
-            id="email"
-            class="w-96 rounded-r-sm py-2 px-3 username"
-          />
+          <div>
+            <input
+              placeholder="Correo electronico"
+              name="Correo"
+              type="email"
+              v-model="email"
+              id="email"
+              class="w-96 rounded-r-sm py-2 px-3 username"
+              v-validate="'required'"
+              data-vv-rules="required"
+            />
+          </div>
         </div>
+        <small
+          class="text-red-500 text-xs relative top-1 mr-28 truncate w-full"
+          v-if="errors && errors.has('Correo')"
+        >
+          <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+          {{ errors.first("Correo") }}
+        </small>
         <div class="flex justify-center">
           <button
             @click.prevent="send()"
-            class="text-white rounded-full py-2 px-4 hover:bg-gray-800 btn"
+            class="text-white rounded-full py-2 px-4 hover:bg-gray-800 btn mt-2"
           >
             Enviar
           </button>
@@ -40,11 +53,62 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "RecoveryComponent",
+  data() {
+    return {
+      email: "",
+    };
+  },
   methods: {
     send() {
-      this.$router.push({ name: "updatePassword" });
+      this.$validator.validateAll().then((success) => {
+        if (success) {
+          axios
+            .post("http://localhost:8081/api/auth/recovery-password", null, {
+              params: {
+                email: this.email,
+              },
+            })
+            .then(() => {
+              this.$toast.success("Se envio un correo con las instrucciones", {
+                position: "top-right",
+                timeout: 2500,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButton: true,
+                hideProgressBar: false,
+                closeButton: "button",
+                icon: true,
+              });
+            })
+            .catch(() => {
+              this.$toast.error("Ocurrio un error", {
+                position: "top-right",
+                timeout: 3000,
+                closeOnClick: true,
+                pauseOnFocusLoss: true,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.6,
+                showCloseButton: true,
+                hideProgressBar: false,
+                closeButton: "button",
+                icon: true,
+              });
+            })
+            .finally(() => {
+              setTimeout(() => {
+                this.$router.push({ name: "login" });
+              }, 3000);
+            });
+        }
+      });
     },
   },
 };

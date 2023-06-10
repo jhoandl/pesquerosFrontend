@@ -137,7 +137,7 @@ export default {
     return {
       columns: OxigenationColumns,
       rows: [],
-      paseSize: 10,
+      paseSize: 1000,
       pageNumber: 0,
       form: new oxigenation("", "", ""),
       newOxigeny: false,

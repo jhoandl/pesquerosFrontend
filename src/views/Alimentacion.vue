@@ -110,7 +110,7 @@ export default {
     return {
       columns: AlimentaciontionColumns,
       rows: [],
-      paseSize: 10,
+      paseSize: 1000,
       pageNumber: 0,
       form: new alimentacion("", "", ""),
       newFood: false,

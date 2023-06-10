@@ -37,6 +37,19 @@ export const auth = {
         }
       );
     },
+    recoveryPassword({ commit }, email) {
+      console.log("entro");
+      return AuthService.recoveryPassword(email).then(
+        (response) => {
+          commit("recoverySuccess");
+          return Promise.resolve(response.data);
+        },
+        (error) => {
+          commit("recoveryFailure");
+          return Promise.reject(error);
+        }
+      );
+    },
   },
   mutations: {
     loginSuccess(state, user) {

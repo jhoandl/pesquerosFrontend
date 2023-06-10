@@ -6,7 +6,7 @@
       <h1 class="text-4xl font-medium mb-4 font-mono text-white">
         Ingrese su nueva contraseña
       </h1>
-      <form>
+      <form @submit.prevent="send()">
         <div class="mb-4 input-group-prepend flex justify-center">
           <!-- <div class="input-group-prepend"> -->
           <span class="input-group-text rounded-l-sm">
@@ -16,24 +16,46 @@
           <input
             placeholder="Confirmar contraseña"
             type="password"
+            name="Contraseña"
+            v-model="password"
             id="password"
             class="w-full rounded-r-sm py-2 px-3 password"
+            v-validate="'required'"
+            data-vv-rules="required"
           />
         </div>
+        <small
+          class="text-red-500 text-xs relative top-1 mr-72 truncate w-full"
+          v-if="errors && errors.has('Contraseña')"
+        >
+          <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+          {{ errors.first("Contraseña") }}
+        </small>
         <div class="mb-4 input-group-prepend flex justify-center">
           <!-- <div class="input-group-prepend"> -->
-          <span class="input-group-text rounded-l-sm">
+          <span class="input-group-text rounded-l-sm mt-2">
             <i class="fa-solid fa-envelope mt-2 ml-1"></i>
           </span>
           <!-- </div> -->
           <input
             placeholder="Contraseña"
             type="password"
+            name="Confirmar contraseña"
             id="password"
-            class="w-full rounded-r-sm py-2 px-3 password"
+            v-model="confirPassword"
+            class="w-full rounded-r-sm py-2 px-3 password mt-2"
+            v-validate="'required'"
+            data-vv-rules="required"
           />
         </div>
-        <div class="flex justify-center">
+        <small
+          class="text-red-500 text-xs relative top-1 mr-56 truncate w-full"
+          v-if="errors && errors.has('Confirmar contraseña')"
+        >
+          <i class="fa-sharp fa-solid fa-circle-exclamation"></i>
+          {{ errors.first("Confirmar contraseña") }}
+        </small>
+        <div class="flex justify-center mt-2">
           <button
             @click.prevent="send()"
             class="text-white rounded-full py-2 px-4 hover:bg-gray-800 btn"
@@ -47,11 +69,88 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "UpdateComponent",
+  data() {
+    return {
+      id: null,
+      password: null,
+      confirPassword: null,
+    };
+  },
+  mounted() {
+    this.id = this.$route.params.id;
+  },
   methods: {
     send() {
-      this.$router.push({ name: "login" });
+      this.$validator.validateAll().then((success) => {
+        if (success) {
+          if (this.password === this.confirPassword) {
+            axios
+              .post(
+                `http://localhost:8081/api/auth/new-password/${this.id}`,
+                null,
+                {
+                  params: {
+                    password: this.password,
+                  },
+                }
+              )
+              .then(() => {
+                this.$toast.success("Contrarseña actualizada correctamente", {
+                  position: "top-right",
+                  timeout: 2000,
+                  closeOnClick: true,
+                  pauseOnFocusLoss: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  draggablePercent: 0.6,
+                  showCloseButton: true,
+                  hideProgressBar: false,
+                  closeButton: "button",
+                  icon: true,
+                });
+              })
+              .catch(() => {
+                this.$toast.error("Ocurrio un error", {
+                  position: "top-right",
+                  timeout: 2000,
+                  closeOnClick: true,
+                  pauseOnFocusLoss: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  draggablePercent: 0.6,
+                  showCloseButton: true,
+                  hideProgressBar: false,
+                  closeButton: "button",
+                  icon: true,
+                });
+              })
+              .finally(() => {
+                setTimeout(() => {
+                  this.$router.push({ name: "login" });
+                }, 2500);
+              });
+          } else {
+            this.$toast.error("Las contraseñas no coinciden", {
+              position: "top-right",
+              timeout: 3000,
+              closeOnClick: true,
+              pauseOnFocusLoss: true,
+              pauseOnHover: true,
+              draggable: true,
+              draggablePercent: 0.6,
+              showCloseButton: true,
+              hideProgressBar: false,
+              closeButton: "button",
+              icon: true,
+            });
+          }
+          console.log("success");
+        }
+      });
     },
   },
 };
