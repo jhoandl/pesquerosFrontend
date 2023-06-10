@@ -67,7 +67,7 @@ export default {
       this.$validator.validateAll().then((success) => {
         if (success) {
           axios
-            .post("http://localhost:8081/api/auth/recovery-password", null, {
+            .post("http://52.91.104.43/api/auth/recovery-password", null, {
               params: {
                 email: this.email,
               },

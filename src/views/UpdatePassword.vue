@@ -90,7 +90,7 @@ export default {
           if (this.password === this.confirPassword) {
             axios
               .post(
-                `http://localhost:8081/api/auth/new-password/${this.id}`,
+                `http://52.91.104.43/api/auth/new-password/${this.id}`,
                 null,
                 {
                   params: {
